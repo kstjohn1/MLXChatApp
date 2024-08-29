@@ -34,6 +34,13 @@ struct ContentView: View {
                     .padding()
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
+            HStack {
+                Button(action: {
+                    response = ""
+                }) {
+                    Image(systemName: "trash")
+                        .font(.title)
+                }
                 Button(action: {
                     // Copy text to clipboard
                     let pasteboard = NSPasteboard.general
@@ -41,8 +48,9 @@ struct ContentView: View {
                     pasteboard.writeObjects([response as NSString])
                 }) {
                     Image(systemName: "doc.on.clipboard")
-                       .font(.title)
+                        .font(.title)
                 }
+            }
         }
         .sheet(isPresented: $showSettings) {
             SettingsView(temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream, onSave: {
