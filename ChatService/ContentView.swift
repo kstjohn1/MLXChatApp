@@ -8,6 +8,7 @@ struct ContentView: View {
     @Binding var stream: Bool
     @State private var code = ""
     @State private var response = ""
+    @State private var isCopying = false
     
     var body: some View {
         VStack {
@@ -27,16 +28,22 @@ struct ContentView: View {
                     .cornerRadius(10)
             }
             .padding()
-            
-            ScrollView {
+
                 TextEditor(text: $response)
                     .frame(height: 200) // Match the height of the request textbox
                     .padding()
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
-            }
-            .frame(height: 250) // Match the height of the request textbox
-            .padding()
+                Button(action: {
+                    // Copy text to clipboard
+                    let pasteboard = NSPasteboard.general
+                    pasteboard.clearContents()
+                    pasteboard.writeObjects([response as NSString])
+                }) {
+                    Image(systemName: "doc.on.clipboard")
+                       .font(.title)
+                }
+            //.frame(height: 200) // Match the height of the request textbox
         }
         .sheet(isPresented: $showSettings) {
             SettingsView(temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream, onSave: {
