@@ -43,7 +43,6 @@ struct ContentView: View {
                     Image(systemName: "doc.on.clipboard")
                        .font(.title)
                 }
-            //.frame(height: 200) // Match the height of the request textbox
         }
         .sheet(isPresented: $showSettings) {
             SettingsView(temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream, onSave: {
