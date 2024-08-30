@@ -12,18 +12,24 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Text("Request:")
+               .font(.title)
+               .padding(.bottom, 4)
+               .padding(.leading, 8)
+               .frame(maxWidth: .infinity, alignment: .leading)
             TextEditor(text: $code)
                 .frame(height: 200)
                 .padding()
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
-            
+
             HStack {
                 Button(action: {
                     code = ""
                 }) {
                     Image(systemName: "trash")
                         .font(.title)
+                        .help("Delete request")
                 }
                 Button(action: {
                     // Send request to server
@@ -31,10 +37,15 @@ struct ContentView: View {
                 }) {
                     Image(systemName: "paperplane")
                         .font(.title)
+                        .help("Send request")
                 }
             }
             .padding()
-
+            Text("Reply:")
+               .font(.title)
+               .padding(.bottom, 4)
+               .padding(.leading, 8)
+               .frame(maxWidth: .infinity, alignment: .leading)
                 TextEditor(text: $response)
                     .frame(height: 200) // Match the height of the request textbox
                     .padding()
@@ -46,6 +57,7 @@ struct ContentView: View {
                 }) {
                     Image(systemName: "trash")
                         .font(.title)
+                        .help("Delete replies")
                 }
                 Button(action: {
                     // Copy text to clipboard
@@ -55,6 +67,7 @@ struct ContentView: View {
                 }) {
                     Image(systemName: "doc.on.clipboard")
                         .font(.title)
+                        .help("Copy replies")
                 }
             }
         }
