@@ -14,7 +14,6 @@
 		842372E52C66E5E300B9CEA1 /* ChatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842372E42C66E5E300B9CEA1 /* ChatServiceTests.swift */; };
 		842372EF2C66E5E300B9CEA1 /* ChatServiceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842372EE2C66E5E300B9CEA1 /* ChatServiceUITests.swift */; };
 		842372F12C66E5E300B9CEA1 /* ChatServiceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842372F02C66E5E300B9CEA1 /* ChatServiceUITestsLaunchTests.swift */; };
-		842373002C670C8E00B9CEA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842372FF2C66E79500B9CEA1 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -238,7 +237,6 @@
 			files = (
 				842372DA2C66E5E300B9CEA1 /* Preview Assets.xcassets in Resources */,
 				842372D72C66E5E300B9CEA1 /* Assets.xcassets in Resources */,
-				842373002C670C8E00B9CEA1 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

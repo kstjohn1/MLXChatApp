@@ -18,14 +18,20 @@ struct ContentView: View {
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
             
-            Button(action: {
-                sendRequest(code: code)
-            }) {
-                Text("Send Request")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            HStack {
+                Button(action: {
+                    code = ""
+                }) {
+                    Image(systemName: "trash")
+                        .font(.title)
+                }
+                Button(action: {
+                    // Send request to server
+                    sendRequest(code: code)
+                }) {
+                    Image(systemName: "paperplane")
+                        .font(.title)
+                }
             }
             .padding()
 
