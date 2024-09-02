@@ -34,15 +34,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		842372CF2C66E5E200B9CEA1 /* MLXChatService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLXChatService.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		842372CF2C66E5E200B9CEA1 /* MLXChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLXChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		842372D22C66E5E200B9CEA1 /* ChatServiceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServiceApp.swift; sourceTree = "<group>"; };
 		842372D42C66E5E200B9CEA1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		842372D62C66E5E300B9CEA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		842372D92C66E5E300B9CEA1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		842372DB2C66E5E300B9CEA1 /* ChatService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatService.entitlements; sourceTree = "<group>"; };
-		842372E02C66E5E300B9CEA1 /* MLXChatServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLXChatServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		842372E02C66E5E300B9CEA1 /* MLXChatAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLXChatAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		842372E42C66E5E300B9CEA1 /* ChatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServiceTests.swift; sourceTree = "<group>"; };
-		842372EA2C66E5E300B9CEA1 /* MLXChatServiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLXChatServiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		842372EA2C66E5E300B9CEA1 /* MLXChatAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLXChatAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		842372EE2C66E5E300B9CEA1 /* ChatServiceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServiceUITests.swift; sourceTree = "<group>"; };
 		842372F02C66E5E300B9CEA1 /* ChatServiceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServiceUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		842372FF2C66E79500B9CEA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -86,9 +86,9 @@
 		842372D02C66E5E200B9CEA1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				842372CF2C66E5E200B9CEA1 /* MLXChatService.app */,
-				842372E02C66E5E300B9CEA1 /* MLXChatServiceTests.xctest */,
-				842372EA2C66E5E300B9CEA1 /* MLXChatServiceUITests.xctest */,
+				842372CF2C66E5E200B9CEA1 /* MLXChatApp.app */,
+				842372E02C66E5E300B9CEA1 /* MLXChatAppTests.xctest */,
+				842372EA2C66E5E300B9CEA1 /* MLXChatAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,9 +134,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		842372CE2C66E5E200B9CEA1 /* MLXChatService */ = {
+		842372CE2C66E5E200B9CEA1 /* MLXChatApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 842372F42C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatService" */;
+			buildConfigurationList = 842372F42C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatApp" */;
 			buildPhases = (
 				842372CB2C66E5E200B9CEA1 /* Sources */,
 				842372CC2C66E5E200B9CEA1 /* Frameworks */,
@@ -146,14 +146,14 @@
 			);
 			dependencies = (
 			);
-			name = MLXChatService;
+			name = MLXChatApp;
 			productName = ChatService;
-			productReference = 842372CF2C66E5E200B9CEA1 /* MLXChatService.app */;
+			productReference = 842372CF2C66E5E200B9CEA1 /* MLXChatApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		842372DF2C66E5E300B9CEA1 /* MLXChatServiceTests */ = {
+		842372DF2C66E5E300B9CEA1 /* MLXChatAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 842372F72C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatServiceTests" */;
+			buildConfigurationList = 842372F72C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatAppTests" */;
 			buildPhases = (
 				842372DC2C66E5E300B9CEA1 /* Sources */,
 				842372DD2C66E5E300B9CEA1 /* Frameworks */,
@@ -164,14 +164,14 @@
 			dependencies = (
 				842372E22C66E5E300B9CEA1 /* PBXTargetDependency */,
 			);
-			name = MLXChatServiceTests;
+			name = MLXChatAppTests;
 			productName = ChatServiceTests;
-			productReference = 842372E02C66E5E300B9CEA1 /* MLXChatServiceTests.xctest */;
+			productReference = 842372E02C66E5E300B9CEA1 /* MLXChatAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		842372E92C66E5E300B9CEA1 /* MLXChatServiceUITests */ = {
+		842372E92C66E5E300B9CEA1 /* MLXChatAppUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 842372FA2C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatServiceUITests" */;
+			buildConfigurationList = 842372FA2C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatAppUITests" */;
 			buildPhases = (
 				842372E62C66E5E300B9CEA1 /* Sources */,
 				842372E72C66E5E300B9CEA1 /* Frameworks */,
@@ -182,9 +182,9 @@
 			dependencies = (
 				842372EC2C66E5E300B9CEA1 /* PBXTargetDependency */,
 			);
-			name = MLXChatServiceUITests;
+			name = MLXChatAppUITests;
 			productName = ChatServiceUITests;
-			productReference = 842372EA2C66E5E300B9CEA1 /* MLXChatServiceUITests.xctest */;
+			productReference = 842372EA2C66E5E300B9CEA1 /* MLXChatAppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -210,7 +210,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 842372CA2C66E5E200B9CEA1 /* Build configuration list for PBXProject "MLXChatService" */;
+			buildConfigurationList = 842372CA2C66E5E200B9CEA1 /* Build configuration list for PBXProject "MLXChatApp" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -223,9 +223,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				842372CE2C66E5E200B9CEA1 /* MLXChatService */,
-				842372DF2C66E5E300B9CEA1 /* MLXChatServiceTests */,
-				842372E92C66E5E300B9CEA1 /* MLXChatServiceUITests */,
+				842372CE2C66E5E200B9CEA1 /* MLXChatApp */,
+				842372DF2C66E5E300B9CEA1 /* MLXChatAppTests */,
+				842372E92C66E5E300B9CEA1 /* MLXChatAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -288,12 +288,12 @@
 /* Begin PBXTargetDependency section */
 		842372E22C66E5E300B9CEA1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 842372CE2C66E5E200B9CEA1 /* MLXChatService */;
+			target = 842372CE2C66E5E200B9CEA1 /* MLXChatApp */;
 			targetProxy = 842372E12C66E5E300B9CEA1 /* PBXContainerItemProxy */;
 		};
 		842372EC2C66E5E300B9CEA1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 842372CE2C66E5E200B9CEA1 /* MLXChatService */;
+			target = 842372CE2C66E5E200B9CEA1 /* MLXChatApp */;
 			targetProxy = 842372EB2C66E5E300B9CEA1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -485,7 +485,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLXChatService.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MLXChatService";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLXChatApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MLXChatApp";
 			};
 			name = Debug;
 		};
@@ -503,7 +503,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLXChatService.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MLXChatService";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLXChatApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MLXChatApp";
 			};
 			name = Release;
 		};
@@ -542,7 +542,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		842372CA2C66E5E200B9CEA1 /* Build configuration list for PBXProject "MLXChatService" */ = {
+		842372CA2C66E5E200B9CEA1 /* Build configuration list for PBXProject "MLXChatApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				842372F22C66E5E300B9CEA1 /* Debug */,
@@ -551,7 +551,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		842372F42C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatService" */ = {
+		842372F42C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				842372F52C66E5E300B9CEA1 /* Debug */,
@@ -560,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		842372F72C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatServiceTests" */ = {
+		842372F72C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				842372F82C66E5E300B9CEA1 /* Debug */,
@@ -569,7 +569,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		842372FA2C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatServiceUITests" */ = {
+		842372FA2C66E5E300B9CEA1 /* Build configuration list for PBXNativeTarget "MLXChatAppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				842372FB2C66E5E300B9CEA1 /* Debug */,

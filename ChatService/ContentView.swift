@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var code = ""
     @State private var response = ""
     @State private var isCopying = false
+    @State private var apiUrl = "http://127.0.0.1:8080/v1/chat/completions"
     
     var body: some View {
         VStack {
@@ -72,7 +73,7 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showSettings) {
-            SettingsView(temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream, onSave: {
+            SettingsView(temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream, apiUrl: $apiUrl,onSave: {
                 showSettings = false
             }, onCancel: {
                 showSettings = false
@@ -89,10 +90,6 @@ struct ContentView: View {
         var request = constructURLRequest(url: url)
         request.httpBody = serializeJSON(parameters: constructParameters(code: code))
         
-        // Add a separator before starting a new response
-        DispatchQueue.main.async {
-            self.response += "\n\n---\n\n"
-        }
         // Add a separator before starting a new request
         DispatchQueue.main.async {
             self.code += "\n\n---\n\n"
@@ -106,7 +103,7 @@ struct ContentView: View {
     }
 
     func constructURL() -> URL? {
-        return URL(string: "http://127.0.0.1:8080/v1/chat/completions")
+        return URL(string: apiUrl)
     }
 
     func constructURLRequest(url: URL) -> URLRequest {
@@ -160,8 +157,16 @@ struct ContentView: View {
             let chunks = responseString.split(separator: "\n")
             for chunk in chunks {
                 if chunk.hasPrefix("data: ") {
+                    if chunk.hasPrefix("data: [DONE]") {
+                        // Add a separator before starting a new response
+                        DispatchQueue.main.async {
+                            self.response += "\n\n---\n\n"
+                        }
+                        print("Stream is complete, stopping processing")
+                        return
+                    }
                     let jsonString = chunk.dropFirst(6) // Remove "data: " prefix
-                    if let jsonData = jsonString.data(using: .utf8) {
+                    if let jsonData = jsonString.data(using:.utf8) {
                         do {
                             let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
                             if let choices = json?["choices"] as? [[String: Any]],
@@ -173,9 +178,17 @@ struct ContentView: View {
                             }
                         } catch {
                             print("Error parsing chunk: \(error)")
+                            // Add a separator before starting a new response
+                            DispatchQueue.main.async {
+                                self.response += "\n\n---\n\n"
+                            }
                         }
                     }
                 }
+            }
+            // Add a separator before starting a new response
+            DispatchQueue.main.async {
+                self.response += "\n\n---\n\n"
             }
         }
     }
@@ -186,6 +199,7 @@ struct SettingsView: View {
     @Binding var topP: Double
     @Binding var maxTokens: Int
     @Binding var stream: Bool
+    @Binding var apiUrl: String
 
     var onSave: () -> Void
     var onCancel: () -> Void
@@ -201,6 +215,9 @@ struct SettingsView: View {
     var body: some View {
         VStack {
             Form {
+                Section(header: Text("API Settings").padding()) {
+                    TextField("API URL", text: $apiUrl)
+                }
                 Section(header: Text("Model Settings").padding()) {
                     HStack {
                         Text("Temperature:")
