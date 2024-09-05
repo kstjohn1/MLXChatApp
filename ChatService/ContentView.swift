@@ -10,91 +10,126 @@ struct ContentView: View {
     @State private var response = ""
     @State private var isCopying = false
     @State private var apiUrl = "http://127.0.0.1:8080/v1/chat/completions"
-    
-    var body: some View {
-        VStack {
-            Text("Request:")
-               .font(.title)
-               .padding(.bottom, 4)
-               .padding(.leading, 8)
-               .frame(maxWidth: .infinity, alignment: .leading)
-            TextEditor(text: $code)
-                .frame(height: 200)
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(10)
+    @State private var currentChatSession = "Default Session"
+    @State private var chatSessions = ["Default Session"]
 
-            HStack {
-                Button(action: {
-                    code = ""
-                }) {
-                    Image(systemName: "trash")
-                        .font(.title)
-                        .help("Delete request")
+    var body: some View {
+        HStack {
+            VStack {
+                Text("Chat Sessions:")
+                    .font(.title2)
+                    .padding(.bottom, 4)
+                ScrollView {
+                    ForEach(chatSessions, id: \.self) { session in
+                        Button(action: {
+                            currentChatSession = session
+                        }) {
+                            HStack {
+                                Text(session)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                                Spacer()
+                                if currentChatSession == session {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 8)
+                            .background(Color.blue.opacity(currentChatSession == session ? 0.2 : 0))
+                            .cornerRadius(8)
+                        }
+                    }
                 }
-                Button(action: {
-                    // Send request to server
-                    sendRequest(code: code)
-                }) {
-                    Image(systemName: "paperplane")
-                        .font(.title)
-                        .help("Send request")
-                }
+                .frame(maxWidth: 200)
+                .padding(.horizontal)
             }
-            .padding()
-            Text("Reply:")
-               .font(.title)
-               .padding(.bottom, 4)
-               .padding(.leading, 8)
-               .frame(maxWidth: .infinity, alignment: .leading)
+
+            VStack {
+                Text("Request:")
+                    .font(.title)
+                    .padding(.bottom, 4)
+                    .padding(.leading, 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                TextEditor(text: $code)
+                    .frame(height: 200)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+
+                HStack {
+                    Button(action: {
+                        code = ""
+                    }) {
+                        Image(systemName: "trash")
+                            .font(.title)
+                            .help("Delete request")
+                    }
+                    Button(action: {
+                        // Send request to server
+                        sendRequest(code: code)
+                    }) {
+                        Image(systemName: "paperplane")
+                            .font(.title)
+                            .help("Send request")
+                    }
+                }
+                .padding()
+                Text("Reply:")
+                    .font(.title)
+                    .padding(.bottom, 4)
+                    .padding(.leading, 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 TextEditor(text: $response)
                     .frame(height: 200) // Match the height of the request textbox
                     .padding()
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
-            HStack {
-                Button(action: {
-                    response = ""
-                }) {
-                    Image(systemName: "trash")
-                        .font(.title)
-                        .help("Delete replies")
-                }
-                Button(action: {
-                    // Copy text to clipboard
-                    let pasteboard = NSPasteboard.general
-                    pasteboard.clearContents()
-                    pasteboard.writeObjects([response as NSString])
-                }) {
-                    Image(systemName: "doc.on.clipboard")
-                        .font(.title)
-                        .help("Copy replies")
+
+                HStack {
+                    Button(action: {
+                        response = ""
+                    }) {
+                        Image(systemName: "trash")
+                            .font(.title)
+                            .help("Delete replies")
+                    }
+                    Button(action: {
+                        // Copy text to clipboard
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.clearContents()
+                        pasteboard.writeObjects([response as NSString])
+                    }) {
+                        Image(systemName: "doc.on.clipboard")
+                            .font(.title)
+                            .help("Copy replies")
+                    }
                 }
             }
+            .padding()
         }
         .sheet(isPresented: $showSettings) {
-            SettingsView(temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream, apiUrl: $apiUrl,onSave: {
+            SettingsView(temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream, apiUrl: $apiUrl, onSave: {
                 showSettings = false
             }, onCancel: {
                 showSettings = false
             })
         }
     }
-    
+
     func sendRequest(code: String) {
         guard let url = constructURL() else {
             print("Invalid URL")
             return
         }
-        
+
         var request = constructURLRequest(url: url)
         request.httpBody = serializeJSON(parameters: constructParameters(code: code))
-        
+
         // Add a separator before starting a new request
         DispatchQueue.main.async {
             self.code += "\n\n---\n\n"
         }
-        
+
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: request) { data, response, error in
             handleResponse(data: data, response: response, error: error)
@@ -142,17 +177,17 @@ struct ContentView: View {
             }
             return
         }
-        
+
         guard let data = data else {
             DispatchQueue.main.async {
                 self.response += "No data received"
             }
             return
         }
-        
-        if let responseString = String(data: data, encoding:.utf8) {
+
+        if let responseString = String(data: data, encoding: .utf8) {
             print("Response String: \(responseString)") // Print the raw response string
-            
+
             // Split the response string into individual JSON objects
             let chunks = responseString.split(separator: "\n")
             for chunk in chunks {
@@ -166,7 +201,7 @@ struct ContentView: View {
                         return
                     }
                     let jsonString = chunk.dropFirst(6) // Remove "data: " prefix
-                    if let jsonData = jsonString.data(using:.utf8) {
+                    if let jsonData = jsonString.data(using: .utf8) {
                         do {
                             let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
                             if let choices = json?["choices"] as? [[String: Any]],
@@ -203,12 +238,12 @@ struct SettingsView: View {
 
     var onSave: () -> Void
     var onCancel: () -> Void
-    var intProxy: Binding<Double>{
+    var intProxy: Binding<Double> {
         Binding<Double>(get: {
-            //returns the integer as a Double
+            // returns the integer as a Double
             return Double(maxTokens)
         }, set: {
-            //rounds the double to an Int
+            // rounds the double to an Int
             maxTokens = Int($0)
         })
     }
@@ -230,7 +265,7 @@ struct SettingsView: View {
                         Text(String(format: "%.2f", topP))
                     }
                     HStack {
-                       // Spacer()
+                        // Spacer()
                         Text("Max Tokens:")
                         Slider(value: intProxy, in: 0...128000, step: 1000)
                         Text(String(format: "%.0f", intProxy.wrappedValue))
@@ -247,9 +282,9 @@ struct SettingsView: View {
                     onCancel()
                 }
                 .padding()
-                
+
                 Spacer()
-                
+
                 Button("Save") {
                     onSave()
                 }
@@ -266,4 +301,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView(showSettings: .constant(false), temperature: .constant(0.3), topP: .constant(0.9), maxTokens: .constant(32000), stream: .constant(true))
     }
 }
-
