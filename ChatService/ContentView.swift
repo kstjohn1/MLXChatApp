@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var apiUrl = "http://127.0.0.1:8080/v1/chat/completions"
     @State private var currentChatSession = "Default Session"
     @State private var chatSessions = ["Default Session"]
+    @State private var cachedRequests: [String: String] = [:]
+    @State private var cachedResponses: [String: String] = [:]
 
     var body: some View {
         HStack {
@@ -23,6 +25,7 @@ struct ContentView: View {
                     ForEach(chatSessions, id: \.self) { session in
                         Button(action: {
                             currentChatSession = session
+                            loadSession(session: session)
                         }) {
                             HStack {
                                 Text(session)
@@ -38,6 +41,20 @@ struct ContentView: View {
                             .background(Color.blue.opacity(currentChatSession == session ? 0.2 : 0))
                             .cornerRadius(8)
                         }
+                    }
+                    Button(action: {
+                        createNewSession()
+                    }) {
+                        HStack {
+                            Text("+ New Session")
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                            Spacer()
+                        }
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(8)
                     }
                 }
                 .frame(maxWidth: 200)
@@ -128,6 +145,7 @@ struct ContentView: View {
         // Add a separator before starting a new request
         DispatchQueue.main.async {
             self.code += "\n\n---\n\n"
+            self.cachedRequests[currentChatSession] = self.code
         }
 
         let session = URLSession(configuration: .default)
@@ -142,7 +160,7 @@ struct ContentView: View {
     }
 
     func constructURLRequest(url: URL) -> URLRequest {
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30.0)
+        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
@@ -196,6 +214,7 @@ struct ContentView: View {
                         // Add a separator before starting a new response
                         DispatchQueue.main.async {
                             self.response += "\n\n---\n\n"
+                            self.cachedResponses[self.currentChatSession] = self.response
                         }
                         print("Stream is complete, stopping processing")
                         return
@@ -216,6 +235,7 @@ struct ContentView: View {
                             // Add a separator before starting a new response
                             DispatchQueue.main.async {
                                 self.response += "\n\n---\n\n"
+                                self.cachedResponses[self.currentChatSession] = self.response
                             }
                         }
                     }
@@ -224,7 +244,26 @@ struct ContentView: View {
             // Add a separator before starting a new response
             DispatchQueue.main.async {
                 self.response += "\n\n---\n\n"
+                self.cachedResponses[self.currentChatSession] = self.response
             }
+        }
+    }
+
+    func createNewSession() {
+        let newSessionName = "New Session \(chatSessions.count + 1)"
+        chatSessions.append(newSessionName)
+        currentChatSession = newSessionName
+        cachedRequests[newSessionName] = ""
+        cachedResponses[newSessionName] = ""
+    }
+
+    func loadSession(session: String) {
+        currentChatSession = session
+        if let cachedRequest = cachedRequests[session] {
+            code = cachedRequest
+        }
+        if let cachedResponse = cachedResponses[session] {
+            response = cachedResponse
         }
     }
 }
@@ -250,10 +289,14 @@ struct SettingsView: View {
     var body: some View {
         VStack {
             Form {
-                Section(header: Text("API Settings").padding()) {
+                Section(header: Text("API Settings")
+                    .padding()
+                    .background(Color.primary)) {
                     TextField("API URL", text: $apiUrl)
                 }
-                Section(header: Text("Model Settings").padding()) {
+                Section(header: Text("Model Settings")
+                    .padding()
+                    .background(Color.primary)) {
                     HStack {
                         Text("Temperature:")
                         Slider(value: $temperature, in: 0...1)
