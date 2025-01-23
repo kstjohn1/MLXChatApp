@@ -1,32 +1,29 @@
-//
-//  ChatServiceApp.swift
-//  ChatService
-//
-//  Created by ksj on 8/9/24.
-//
-
 import SwiftUI
+import LocalAuthentication
 
 @main
 struct ChatServiceApp: App {
-    @State private var showSettings = false
-    @State private var temperature: Double = 0.3
-    @State private var topP: Double = 0.9
-    @State private var maxTokens: Int = 32000
-    @State private var stream: Bool = true
-    
+    @StateObject var settingsState = SettingsState()
+    @StateObject var modelSettings = ModelSettings()
+    @StateObject var apiConfig = APIConfig()
+
     var body: some Scene {
         WindowGroup {
-            ContentView(showSettings: $showSettings, temperature: $temperature, topP: $topP, maxTokens: $maxTokens, stream: $stream)
+            ContentView()
+                .environmentObject(ChatViewModel(sessionManager: ChatSessionManager(), apiService: ApiService(apiConfig: apiConfig, modelSettings: modelSettings)))
+                .environmentObject(apiConfig)
+                .environmentObject(modelSettings)
+                .environmentObject(ChatSessionManager())
+                .environmentObject(ApiService(apiConfig: apiConfig, modelSettings: modelSettings))
+                .environmentObject(settingsState)
         }
         .commands {
             CommandGroup(replacing: .appSettings) {
                 Button("Settings") {
-                    showSettings.toggle()
+                    settingsState.isSettingsPresent = true
                 }
                 .keyboardShortcut(",", modifiers: .command)
             }
         }
     }
 }
-
