@@ -205,7 +205,6 @@ struct SettingsView: View {
                     modelSettings.stream = originalModelSettings.stream
                     modelSettings.systemMessage = originalModelSettings.systemMessage
                     
-                    // Dismiss the settings sheet
                     settingsState.isSettingsPresent = false
                 }
                 .padding()
@@ -214,7 +213,7 @@ struct SettingsView: View {
 
                 Button("Save") {
                     saveSettings()
-                    // Dismiss the settings sheet after saving
+                    
                     settingsState.isSettingsPresent = false
                 }
                 .padding()
@@ -229,8 +228,17 @@ struct SettingsView: View {
     }
 
     private func saveSettings() {
-        // Update APIConfig and ModelSettings
-        // Here you can add code to persist settings if needed
+        // Save APIConfig to UserDefaults
+        UserDefaults.standard.set(apiConfig.url, forKey: "apiURL")
+        UserDefaults.standard.set(apiConfig.key, forKey: "apiKey")
+        
+        // Save ModelSettings to UserDefaults
+        UserDefaults.standard.set(modelSettings.temperature, forKey: "temperature")
+        UserDefaults.standard.set(modelSettings.topP, forKey: "topP")
+        UserDefaults.standard.set(modelSettings.maxTokens, forKey: "maxTokens")
+        UserDefaults.standard.set(modelSettings.stream, forKey: "stream")
+        UserDefaults.standard.set(modelSettings.systemMessage, forKey: "systemMessage")
+        
         isSaveSuccessful = true
     }
 }
