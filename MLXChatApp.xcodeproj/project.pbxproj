@@ -14,6 +14,13 @@
 		842372E52C66E5E300B9CEA1 /* ChatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842372E42C66E5E300B9CEA1 /* ChatServiceTests.swift */; };
 		842372EF2C66E5E300B9CEA1 /* ChatServiceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842372EE2C66E5E300B9CEA1 /* ChatServiceUITests.swift */; };
 		842372F12C66E5E300B9CEA1 /* ChatServiceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842372F02C66E5E300B9CEA1 /* ChatServiceUITestsLaunchTests.swift */; };
+		849BC23A2D418D8600AFC186 /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC2392D418D7B00AFC186 /* SettingsState.swift */; };
+		84A3B11F2D403FA200607471 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3B11E2D403F8700607471 /* APIConfig.swift */; };
+		84A3B1212D403FBC00607471 /* ModelSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3B1202D403FB600607471 /* ModelSettings.swift */; };
+		84A3B1232D403FDF00607471 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3B1222D403FDB00607471 /* Message.swift */; };
+		84A3B1252D403FFE00607471 /* ChatSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3B1242D403FF700607471 /* ChatSessionManager.swift */; };
+		84A3B1272D40403600607471 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3B1262D40402A00607471 /* ApiService.swift */; };
+		84A3B12B2D4040B600607471 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3B12A2D40409A00607471 /* ChatViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +53,13 @@
 		842372EE2C66E5E300B9CEA1 /* ChatServiceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServiceUITests.swift; sourceTree = "<group>"; };
 		842372F02C66E5E300B9CEA1 /* ChatServiceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServiceUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		842372FF2C66E79500B9CEA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		849BC2392D418D7B00AFC186 /* SettingsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsState.swift; sourceTree = "<group>"; };
+		84A3B11E2D403F8700607471 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
+		84A3B1202D403FB600607471 /* ModelSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettings.swift; sourceTree = "<group>"; };
+		84A3B1222D403FDB00607471 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		84A3B1242D403FF700607471 /* ChatSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSessionManager.swift; sourceTree = "<group>"; };
+		84A3B1262D40402A00607471 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		84A3B12A2D40409A00607471 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +110,15 @@
 		842372D12C66E5E200B9CEA1 /* ChatService */ = {
 			isa = PBXGroup;
 			children = (
+				849BC2392D418D7B00AFC186 /* SettingsState.swift */,
+				84A3B12A2D40409A00607471 /* ChatViewModel.swift */,
+				84A3B1262D40402A00607471 /* ApiService.swift */,
+				84A3B1242D403FF700607471 /* ChatSessionManager.swift */,
+				84A3B1222D403FDB00607471 /* Message.swift */,
+				84A3B1202D403FB600607471 /* ModelSettings.swift */,
+				84A3B11E2D403F8700607471 /* APIConfig.swift */,
 				842372FF2C66E79500B9CEA1 /* Info.plist */,
 				842372D22C66E5E200B9CEA1 /* ChatServiceApp.swift */,
-				842372D42C66E5E200B9CEA1 /* ContentView.swift */,
 				842372D62C66E5E300B9CEA1 /* Assets.xcassets */,
 				842372DB2C66E5E300B9CEA1 /* ChatService.entitlements */,
 				842372D82C66E5E300B9CEA1 /* Preview Content */,
@@ -109,6 +129,7 @@
 		842372D82C66E5E300B9CEA1 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				842372D42C66E5E200B9CEA1 /* ContentView.swift */,
 				842372D92C66E5E300B9CEA1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -195,7 +216,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					842372CE2C66E5E200B9CEA1 = {
 						CreatedOnToolsVersion = 15.4;
@@ -261,8 +282,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A3B1212D403FBC00607471 /* ModelSettings.swift in Sources */,
 				842372D52C66E5E200B9CEA1 /* ContentView.swift in Sources */,
+				849BC23A2D418D8600AFC186 /* SettingsState.swift in Sources */,
+				84A3B12B2D4040B600607471 /* ChatViewModel.swift in Sources */,
+				84A3B1252D403FFE00607471 /* ChatSessionManager.swift in Sources */,
+				84A3B1232D403FDF00607471 /* Message.swift in Sources */,
 				842372D32C66E5E200B9CEA1 /* ChatServiceApp.swift in Sources */,
+				84A3B1272D40403600607471 /* ApiService.swift in Sources */,
+				84A3B11F2D403FA200607471 /* APIConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +361,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -359,6 +388,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -396,6 +426,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -414,6 +445,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -427,6 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChatService/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -454,6 +487,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"ChatService/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -474,10 +508,10 @@
 		842372F82C66E5E300B9CEA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
@@ -492,10 +526,10 @@
 		842372F92C66E5E300B9CEA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
@@ -510,9 +544,9 @@
 		842372FB2C66E5E300B9CEA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "KSJ-Home.ChatServiceUITests";
@@ -526,9 +560,9 @@
 		842372FC2C66E5E300B9CEA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "KSJ-Home.ChatServiceUITests";
