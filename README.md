@@ -3,6 +3,7 @@ The app defaults to localhost:8080, but you should be able to point it at any Op
 Quick start:
 
 pip install mlx
+
 mlx_lm.server --model mlx-community/DeepSeek-R1-Distill-Qwen-32B-bf16
 
 Compile and run the app in xCode.
