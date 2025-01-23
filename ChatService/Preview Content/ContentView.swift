@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @EnvironmentObject var settingsState: SettingsState
     @EnvironmentObject var viewModel: ChatViewModel
     @EnvironmentObject var apiConfig: APIConfig
@@ -146,59 +145,93 @@ struct SettingsView: View {
     @EnvironmentObject var apiConfig: APIConfig
     @EnvironmentObject var modelSettings: ModelSettings
     @EnvironmentObject var settingsState: SettingsState
+    @State var isSaveSuccessful = false
+    @State private var originalApiConfig: APIConfig
+    @State private var originalModelSettings: ModelSettings
+
+    init() {
+        _originalApiConfig = State(initialValue: APIConfig(url: "", key: ""))
+        _originalModelSettings = State(initialValue: ModelSettings())
+    }
 
     var body: some View {
         VStack {
             Form {
                 Section(header: Text("API Settings")) {
-                    SecureField("API Key", text: $apiConfig.key)
-                    TextField("System Prompt", text: $modelSettings.systemMessage)
-                }
+                   SecureField("API Key", text: $apiConfig.key)
+                   TextField("System Prompt", text: $modelSettings.systemMessage)
+               }
 
-                Section(header: Text("Model Settings")) {
-                    HStack {
-                        Text("Temperature:")
-                        Slider(value: $modelSettings.temperature, in: 0...1)
-                        Text(String(format: "%.2f", modelSettings.temperature))
-                    }
+               Section(header: Text("Model Settings")) {
+                   HStack {
+                       Text("Temperature:")
+                       Slider(value: $modelSettings.temperature, in: 0...1)
+                       Text(String(format: "%.2f", modelSettings.temperature))
+                   }
 
-                    HStack {
-                        Text("Top P:")
-                        Slider(value: $modelSettings.topP, in: 0...1)
-                        Text(String(format: "%.2f", modelSettings.topP))
-                    }
+                   HStack {
+                       Text("Top P:")
+                       Slider(value: $modelSettings.topP, in: 0...1)
+                       Text(String(format: "%.2f", modelSettings.topP))
+                   }
 
-                    HStack {
-                        Text("Max Tokens:")
-                        Slider(value: Binding(
-                            get: { Double(modelSettings.maxTokens) },
-                            set: { modelSettings.maxTokens = Int($0) }
-                        ), in: 0...128000, step: 1000)
-                        Text(String(modelSettings.maxTokens))
-                    }
-                }
+                   HStack {
+                       Text("Max Tokens:")
+                       Slider(value: Binding(
+                           get: { Double(modelSettings.maxTokens) },
+                           set: { modelSettings.maxTokens = Int($0) }
+                       ), in: 0...128000, step: 1000)
+                       Text(String(modelSettings.maxTokens))
+                   }
+               }
 
-                Section(header: Text("Streaming")) {
-                    Toggle("Enable Streaming", isOn: $modelSettings.stream)
-                }
+               Section(header: Text("Streaming")) {
+                   Toggle("Enable Streaming", isOn: $modelSettings.stream)
+               }
+            }
+            .onAppear {
+                originalApiConfig = apiConfig
+                originalModelSettings = modelSettings
             }
 
             HStack {
                 Button("Cancel") {
-                    settingsState.isSettingsPresent = false// Reset changes if needed
+                    // Restore original settings
+                    apiConfig.url = originalApiConfig.url
+                    apiConfig.key = originalApiConfig.key
+                    modelSettings.temperature = originalModelSettings.temperature
+                    modelSettings.topP = originalModelSettings.topP
+                    modelSettings.maxTokens = originalModelSettings.maxTokens
+                    modelSettings.stream = originalModelSettings.stream
+                    modelSettings.systemMessage = originalModelSettings.systemMessage
+                    
+                    // Dismiss the settings sheet
+                    settingsState.isSettingsPresent = false
                 }
                 .padding()
 
                 Spacer()
 
                 Button("Save") {
-                    // Save settings
+                    saveSettings()
+                    // Dismiss the settings sheet after saving
+                    settingsState.isSettingsPresent = false
                 }
                 .padding()
             }
         }
+
         .padding()
         .frame(width: 400, height: 450)
+        .alert("Settings Saved", isPresented: $isSaveSuccessful) {
+            Button("OK") { }
+        }
+    }
+
+    private func saveSettings() {
+        // Update APIConfig and ModelSettings
+        // Here you can add code to persist settings if needed
+        isSaveSuccessful = true
     }
 }
 
@@ -206,10 +239,10 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(SettingsState())
-            .environmentObject(ChatViewModel(sessionManager: ChatSessionManager(), apiService: ApiService(apiConfig: APIConfig())))
+            .environmentObject(ChatViewModel(sessionManager: ChatSessionManager(), apiService: ApiService(apiConfig: APIConfig(), modelSettings: ModelSettings())))
             .environmentObject(APIConfig())
             .environmentObject(ModelSettings())
             .environmentObject(ChatSessionManager())
-            .environmentObject(ApiService(apiConfig: APIConfig()))
+            .environmentObject(ApiService(apiConfig: APIConfig(), modelSettings: ModelSettings()))
     }
 }
